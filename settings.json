@@ -1,0 +1,9 @@
+{
+    "logFileName": "ddnslog.log",
+    "logLevel": "info",
+    "//": "available log level: debug, info, warning",
+    "accessKeyId":"your_access_key_Id",
+    "accessSecret":"your_access_secret",
+    "domain":"your_domain",
+    "subdomains":["@", "www", "dns"]
+}
