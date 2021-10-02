@@ -21,11 +21,12 @@ def update(RecordId, RR, Type, Value, aliclient):
     response = json.loads(aliclient.do_action(request))
     error_code = response.get('Code', "No error code")
     if error_code == "No error code":
-        print("Successfully updated record for %s"%(RR+"."+domain))
-        logging.info("Successfully updated record for %s"%(RR+"."+domain))
+        print("Successfully updated record for %s" % (RR+"."+domain))
+        logging.info("Successfully updated record for %s" % (RR+"."+domain))
     else:
-        print("Update for record for %s failed. Response json: %s"%(RR+"."+domain,response))
-        logging.error("Update for record for %s failed. Reccomend: %s"%(RR+"."+domain,response.get("Recommend", "None")))
+        print("Update for record for %s failed. Response json: %s" % (RR+"."+domain, response))
+        logging.error("Update for record for %s failed. Recommend: %s" % 
+                      (RR+"."+domain, response.get("Recommend", "None")))
 
 
 def changeSingleDomain(subDomainName, ipValue, aliclient):
@@ -46,14 +47,15 @@ def changeSingleDomain(subDomainName, ipValue, aliclient):
         else:
             print("The ip address in the record is the same as this machine. Record for %s.%s unchanged." %
                   (subDomainName, domain))
-            logging.info("Record for %s did not change since is it the same as the machine." % (subDomainName + "." + domain))
+            logging.info("Record for %s did not change since is it the same as the machine." %
+                         (subDomainName + "." + domain))
     else:
         print("I don't know what happened. Go check the record on the console.")
-        logging.error("There are more than 1 record for $s."%(subDomainName + "." + domain))
+        logging.error("There are more than 1 record for $s." % (subDomainName + "." + domain))
 
 
 def main():
-    global accessKeyId, accessSecret, domain, subdomains, client
+    global accessKeyId, accessSecret, domain, subdomains
     with open("settings.json") as fl:
         settings = json.loads(fl.read())
     accessKeyId = settings["accessKeyId"]
@@ -72,7 +74,7 @@ def main():
     else:
         LOG_LEVEL = logging.DEBUG
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
-    logging.basicConfig(filename=settings["logFileName"],level=LOG_LEVEL,format=LOG_FORMAT)
+    logging.basicConfig(filename=settings["logFileName"], level=LOG_LEVEL, format=LOG_FORMAT)
 
     currentIP = urlopen("http://v6.ip.zxinc.org/getip").read()
     currentIP = str(currentIP, encoding="utf-8")
