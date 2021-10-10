@@ -5,7 +5,7 @@
     },
 
     "ipv4ddnsSettings": {
-        "Enabled": true,
+        "enabled": true,
         "getIPUrl": "https://api-ipv4.ip.sb/ip",
         "//": "http://v4.ip.zxinc.org/getip is faster in China",
         "domains": [
@@ -21,12 +21,12 @@
     },
 
     "ipv6ddnsSettings": {
-        "Enabled": true,
+        "enabled": true,
         "getIPUrl": "https://api-ipv6.ip.sb/ip",
         "//": "http://v6.ip.zxinc.org/getip is faster in China",
 
-        "UseSettingsInipv4Section": false,
-        "//": "This will override the settings below. You have to first enable ipv6ddns",
+        "UseSettingsInIPv4Section": false,
+        "//": "This will override the settings below and use the settings in ipv4ddnssettings no matter whether you have enabled ipv4ddns. You have to first enable ipv6ddns",
 
         "domains": [
             {
