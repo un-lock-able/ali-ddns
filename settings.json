@@ -8,6 +8,9 @@
         "enabled": true,
         "getIPUrl": "https://api-ipv4.ip.sb/ip",
         "//": "http://v4.ip.zxinc.org/getip is faster in China",
+        "createNewRecord": true,
+        "//": "Controls whether to create a new record when there is no preexisted record found",
+
         "domains": [
             {
                 "domain": "your_domain1.com",
@@ -24,9 +27,11 @@
         "enabled": true,
         "getIPUrl": "https://api-ipv6.ip.sb/ip",
         "//": "http://v6.ip.zxinc.org/getip is faster in China",
+        "createNewRecord": true,
+        "//": "Controls whether to create a new record when there is no preexisted record found",
 
         "UseSettingsInIPv4Section": false,
-        "//": "This will override the settings below and use the settings in ipv4ddnssettings no matter whether you have enabled ipv4ddns. You have to first enable ipv6ddns",
+        "//": "This will override the settings below and use the settings in ipv4ddnssettings no matter whether you have enabled ipv4ddns.",
 
         "domains": [
             {
