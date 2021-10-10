@@ -54,7 +54,7 @@ def main():
     with open("settings.json") as fl:
         settings = json.loads(fl.read())
 
-    LOG_LEVEL = settings["logLevel"]
+    LOG_LEVEL = settings["logSettings"]["logLevel"]
     if LOG_LEVEL.lower() == "debug":
         LOG_LEVEL = logging.DEBUG
     elif LOG_LEVEL.lower() == "info":
@@ -64,7 +64,7 @@ def main():
     else:
         LOG_LEVEL = logging.DEBUG
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
-    logging.basicConfig(filename=settings["logFileName"], level=LOG_LEVEL, format=LOG_FORMAT)
+    logging.basicConfig(filename=settings["logSettings"]["logFileName"], level=LOG_LEVEL, format=LOG_FORMAT)
 
     logging.info("DDNS script started.")
     access_key_id = settings["aliClientSettings"]["accessKeyId"]
