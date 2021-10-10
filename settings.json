@@ -1,9 +1,44 @@
 {
-    "logFileName": "ddnslog.log",
-    "logLevel": "info",
-    "//": "available log level: debug, info, warning",
-    "accessKeyId":"your_access_key_Id",
-    "accessSecret":"your_access_secret",
-    "domain":"your_domain",
-    "subdomains":["@", "www", "dns"]
+    "aliClientSettings": {
+        "accessKeyId":"your_access_key_Id",
+        "accessSecret":"your_access_secret"
+    },
+
+    "ipv4ddnsSettings": {
+        "Enabled": true,
+        "getIPUrl": "https://api-ipv4.ip.sb/ip",
+        "//": "http://v4.ip.zxinc.org/getip is faster in China",
+        "domains": [
+            {
+                "domain": "your_domain1.com",
+                "subdomains": ["@", "www", "dns"]
+            },
+            {
+                "domain": "your_doamin2.com",
+                "subdomains": ["@", "www", "dns"]
+            }
+        ]
+    },
+
+    "ipv6ddnsSettings": {
+        "Enabled": true,
+        "getIPUrl": "https://api-ipv6.ip.sb/ip",
+        "//": "http://v6.ip.zxinc.org/getip is faster in China",
+        "domains": [
+            {
+                "domain": "your_domain1.com",
+                "subdomains": ["@", "www", "dns"]
+            },
+            {
+                "domain": "your_doamin3.com",
+                "subdomains": ["@", "www", "dns"]
+            }
+        ]
+    },
+
+    "logSettings": {
+        "logFileName": "ddnslog.log",
+        "logLevel": "info",
+        "//": "available log level: debug, info, warning"
+    }
 }
