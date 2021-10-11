@@ -1,7 +1,7 @@
 # ali-ddns
 A python script used for ddns on aliyun.
 
-#Usage
+# Usage
 1. Install the packages listed in `requirements.txt`.
 2. Open `settings.json` using any text editor and fill in the information.
 Be sure to fill in `accessKeyId` and `accessSecrect`.
