@@ -17,7 +17,7 @@
                 "subdomains": ["@", "www", "dns"]
             },
             {
-                "domain": "your_doamin2.com",
+                "domain": "your_domain2.com",
                 "subdomains": ["@", "www", "dns"]
             }
         ]
