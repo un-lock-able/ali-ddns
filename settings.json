@@ -8,6 +8,7 @@
         "enabled": true,
         "getIPUrl": "https://api-ipv4.ip.sb/ip",
         "//": "http://v4.ip.zxinc.org/getip is faster in China",
+
         "createNewRecord": true,
         "//": "Controls whether to create a new record when there is no preexisted record found",
 
@@ -27,6 +28,7 @@
         "enabled": true,
         "getIPUrl": "https://api-ipv6.ip.sb/ip",
         "//": "http://v6.ip.zxinc.org/getip is faster in China",
+
         "createNewRecord": true,
         "//": "Controls whether to create a new record when there is no preexisted record found",
 
