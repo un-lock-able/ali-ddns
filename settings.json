@@ -39,8 +39,12 @@
                 "subdomains": ["@", "www", "dns"]
             },
             {
-                "domain": "your_doamin3.com",
+                "domain": "your_domain3.com",
                 "subdomains": ["@", "www", "dns"]
+            },
+            {
+                "domain": "your_domain4.com",
+                "subdomains": ["@", "www", "live"]
             }
         ]
     },
