@@ -1,3 +1,17 @@
+#    Copyright 2021 un-lock-able
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+
 from aliyunsdkcore.client import AcsClient
 from aliyunsdkalidns.request.v20150109.AddDomainRecordRequest import AddDomainRecordRequest
 from aliyunsdkalidns.request.v20150109.DescribeSubDomainRecordsRequest import DescribeSubDomainRecordsRequest
@@ -20,7 +34,7 @@ def create_record(subdomain_name, domain_name, record_type, record_value, ali_cl
     if error_code is None:
         logging.info("Successfully created an %s record for %s." % (record_type, subdomain_name+"."+domain_name))
     else:
-        logging.warning("Failed to create an %s record for %s. Recommend from aliyun: %s" %
+        logging.warning("Failed to create an %s record for %s. Recommended actions from aliyun: %s." %
                         (record_type, subdomain_name+"."+domain_name, response.get("Recommend", "None")))
 
 
@@ -37,7 +51,7 @@ def update_record(subdomain_name, domain_name, record_type, record_value, record
     if error_code is None:
         logging.info("Successfully updated the record for %s." % (subdomain_name+"."+domain_name))
     else:
-        logging.warning("Failed to update the record for %s. Recommended from aliyun: %s." %
+        logging.warning("Failed to update the record for %s. Recommended actions from aliyun: %s." %
                         (subdomain_name+"."+domain_name, response.get("Recommend", "None")))
 
 
@@ -64,7 +78,7 @@ def change_single_domain(subdomain_name, domain_name, record_type, ip_value, all
             logging.info("Record for %s did not change since is it the same as the machine." %
                          (subdomain_name + "." + domain_name))
     else:
-        logging.error("There are more than 1 record for %s. Record for %swas left unchanged." %
+        logging.error("There are more than 1 record for %s. Record for %s was left unchanged." %
                       (subdomain_name + "." + domain_name, subdomain_name + "." + domain_name))
 
 
@@ -94,13 +108,13 @@ def main():
 
         v4_create_new = settings["ipv4ddnsSettings"]["createNewRecord"]
         if v4_create_new:
-            logging.info("Will create new record when there is no record present.")
+            logging.info("The script will create a new record when there is no record present.")
         else:
-            logging.info("Will not create new record when there is no record present.")
+            logging.info("The script will not create a new record when there is no record present.")
 
         current_v4_ip = urlopen(settings["ipv4ddnsSettings"]["getIPUrl"]).read()
         current_v4_ip = str(current_v4_ip, encoding="utf-8").strip()
-        logging.info("Got current ipv4 address: %s" % current_v4_ip)
+        logging.info("Got current ipv4 address: %s." % current_v4_ip)
 
         v4_domains = settings["ipv4ddnsSettings"]["domains"]
         for domain_set in v4_domains:
@@ -113,23 +127,24 @@ def main():
         logging.info("DDNS for ipv4 disabled.")
 
     if settings["ipv6ddnsSettings"]["enabled"]:
-        logging.info("Start ipv6 ddns")
+        logging.info("Start ipv6 ddns.")
 
         v6_create_new = settings["ipv4ddnsSettings"]["createNewRecord"]
         if v6_create_new:
-            logging.info("Will create new record when there is no record present.")
+            logging.info("The script will create a new record when there is no record present.")
         else:
-            logging.info("Will not create new record when there is no record present.")
+            logging.info("The script will not create a new record when there is no record present.")
 
         current_v6_ip = urlopen(settings["ipv6ddnsSettings"]["getIPUrl"]).read()
         current_v6_ip = str(current_v6_ip, encoding="utf-8").strip()
-        logging.info("Got current ipv6 address: %s" % current_v6_ip)
+        logging.info("Got current ipv6 address: %s." % current_v6_ip)
 
         if settings["ipv6ddnsSettings"]["UseSettingsInIPv4Section"]:
             logging.info("Load domain settings from IPv4 Section")
             v6_domains = settings["ipv4ddnsSettings"]["domains"]
         else:
             v6_domains = settings["ipv6ddnsSettings"]["domains"]
+
         for v6_domain_set in v6_domains:
             v6_domain = v6_domain_set["domain"]
             v6_subdomains = v6_domain_set["subdomains"]
@@ -137,7 +152,7 @@ def main():
                 change_single_domain(v6_subdomain, v6_domain, "AAAA", current_v6_ip, v6_create_new, aliyun_client)
         logging.info("DDNS for ipv6 ended.")
     else:
-        logging.info("DDNS for ipv6 disabled")
+        logging.info("DDNS for ipv6 disabled.")
 
     logging.info("DDNS script ended.")
 
