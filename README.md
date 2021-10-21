@@ -3,7 +3,7 @@ A python script used for ddns on aliyun.
 # Usage
 ## Download from the release
 
-* Running the .exe file in the release does not python installed on your computer, 
+* Running the .exe file in the release does not need python installed on your computer, 
 so it may be useful if you want to use ddns on a server.
 * 1. Download the latest release in the and unpack the .zip file into any directory.
 Be sure to keep the `aliddns.exe` and `settings.json` in the same folder.
