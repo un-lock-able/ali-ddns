@@ -75,7 +75,7 @@ class DomainRecordChanger:
             if record_content["Value"].strip() != self.ip_value:
                 self.update_record(subdomain_name)
             else:
-                logging.info("%s record for %s did not change since is it the same as the machine." %
+                logging.info("%s record for %s did not change since it is same as the machine." %
                              self.record_type, full_domain_name)
         else:
             logging.error("There are more than 1 %s record for %s. Record for it was left unchanged." %
