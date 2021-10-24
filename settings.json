@@ -11,8 +11,8 @@
     },
 
     "getIPUrls": {
-        "IPv4Url": "https://api-ipv4.ip.sb/ip",
-        "IPv6Url": "https://api-ipv6.ip.sb/ip"
+        "IPv4": "https://api-ipv4.ip.sb/ip",
+        "IPv6": "https://api-ipv6.ip.sb/ip"
     },
 
     "domainSettings": [
