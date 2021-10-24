@@ -9,7 +9,7 @@ class SettingsManager:
                 self.settings = json.load(setting_file)
             self.is_valid = True
         except FileNotFoundError:
-            logging.error("The settings file %s not found. Please Check your spelling." % setting_filename)
+            logging.error("The settings file aliddnsSettings.json not found. Please Check your spelling.")
             self.is_valid = False
 
     def get_ali_client(self):
