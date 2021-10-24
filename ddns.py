@@ -83,7 +83,7 @@ def change_single_domain(subdomain_name, domain_name, record_type, ip_value, all
 
 
 def main():
-    with open("settings.json") as fl:
+    with open("aliddnsSettings.json") as fl:
         settings = json.loads(fl.read())
 
     log_level = settings["logSettings"]["logLevel"]
