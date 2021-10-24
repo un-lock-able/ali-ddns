@@ -15,14 +15,16 @@ class DomainRecordChanger:
         self.ip_value = ip_value_config
         self.allow_new = allow_new_record
 
+    def do_aliyun_request(self, request):
+        return json.loads(self.ali_client.do_action(request))
+
     def describe_record(self, subdomain_name):
         request = DescribeSubDomainRecordsRequest()
         request.set_accept_format("json")
         request.set_DomainName(self.domain_name)
         request.set_SubDomain(subdomain_name + "." + self.domain_name)
         request.set_Type(self.record_type)
-        response = self.ali_client.do_action(request)
-        domain_list = json.loads(response)
+        domain_list = self.do_aliyun_request(request)
         return domain_list["TotalCount"], domain_list["DomainRecords"]["Record"][0]
 
     def create_record(self, subdomain_name):
@@ -33,8 +35,7 @@ class DomainRecordChanger:
         request.set_RR(subdomain_name)
         request.set_Type(self.record_type)
         request.set_Value(self.ip_value)
-        response = self.ali_client.doaction(request)
-        response = json.loads(response)
+        response = self.do_aliyun_request(request)
         error_code = response.get('Code', None)
         if error_code is None:
             logging.info(
@@ -51,8 +52,7 @@ class DomainRecordChanger:
         request.set_RR(subdomain_name)
         request.set_Type(self.record_type)
         request.set_Value(self.ip_value)
-        response = self.ali_client.do_action(request)
-        response = json.loads(response)
+        response = self.do_aliyun_request(request)
         error_code = response.get('Code', None)
         if error_code is None:
             logging.info("Successfully updated the %s record for %s." % (self.record_type, full_domain_name))
