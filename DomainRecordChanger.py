@@ -3,17 +3,18 @@ from aliyunsdkalidns.request.v20150109.AddDomainRecordRequest import AddDomainRe
 from aliyunsdkalidns.request.v20150109.DescribeSubDomainRecordsRequest import DescribeSubDomainRecordsRequest
 from aliyunsdkalidns.request.v20150109.UpdateDomainRecordRequest import UpdateDomainRecordRequest
 import json
+from urllib.request import urlopen
 
 
 class DomainRecordChanger:
-    def __init__(self, ali_cli, sub_domains_config, domain_name_config,
-                 record_type_config, ip_value_config, allow_new_record):
+    def __init__(self, ali_cli, ip_url, domain_config):
         self.ali_client = ali_cli
-        self.sub_domains = sub_domains_config
-        self.domain_name = domain_name_config
-        self.record_type = record_type_config
-        self.ip_value = ip_value_config
-        self.allow_new = allow_new_record
+        self.enabled = domain_config.get("enabled", False)
+        self.sub_domains = domain_config.get("subdomains", [])
+        self.domain_name = domain_config.get("domainName", None)
+        self.record_type = domain_config.get("recordType", "A")
+        self.ip_value = str(urlopen(ip_url["record_type"]).read(), encoding='utf-8').strip()
+        self.allow_new = domain_config.get("createNewRecord", False)
 
     def do_aliyun_request(self, request):
         return json.loads(self.ali_client.do_action(request))
@@ -83,6 +84,9 @@ class DomainRecordChanger:
 
     def start_ddns(self):
         logging.info("Start DDNS for %s record under %s." % (self.record_type, self.domain_name))
-        for single_subdomain in self.sub_domains:
-            self.change_single_domain(single_subdomain)
-        logging.info("DDNS for %s ended." % self.domain_name)
+        if self.domain_name is None:
+            logging.error("Corrupted configuration: missing domainName")
+        else:
+            for single_subdomain in self.sub_domains:
+                self.change_single_domain(single_subdomain)
+            logging.info("DDNS for %s ended." % self.domain_name)
