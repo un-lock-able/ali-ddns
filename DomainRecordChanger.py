@@ -13,7 +13,7 @@ class DomainRecordChanger:
         self.sub_domains = domain_config.get("subdomains", [])
         self.domain_name = domain_config.get("domainName", None)
         self.record_type = domain_config.get("recordType", "A")
-        self.ip_value = str(urlopen(ip_url["record_type"]).read(), encoding='utf-8').strip()
+        self.ip_value = str(urlopen(ip_url[self.record_type]).read(), encoding='utf-8').strip()
         self.allow_new = domain_config.get("createNewRecord", False)
 
     def do_aliyun_request(self, request):
@@ -26,7 +26,13 @@ class DomainRecordChanger:
         request.set_SubDomain(subdomain_name + "." + self.domain_name)
         request.set_Type(self.record_type)
         domain_list = self.do_aliyun_request(request)
-        return domain_list["TotalCount"], domain_list["DomainRecords"]["Record"][0]
+        error_code = domain_list.get('Code', None)
+        if error_code is None:
+            return domain_list["TotalCount"], domain_list["DomainRecords"]["Record"]
+        else:
+            logging.error("Describe domain record for %s error. Recommended actions from aliyun: %s" %
+                          (self.domain_name, domain_list.get("Recommend", "None")))
+            return -1, None
 
     def create_record(self, subdomain_name):
         full_domain_name = subdomain_name + "." + self.domain_name
@@ -64,7 +70,9 @@ class DomainRecordChanger:
     def change_single_domain(self, subdomain_name):
         full_domain_name = subdomain_name + "." + self.domain_name
         record_count, record_content = self.describe_record(subdomain_name)
-        if record_count == 0:
+        if record_count == -1:
+            logging.error("Describe record error.")
+        elif record_count == 0:
             if self.allow_new:
                 logging.info("The Domain %s doesn't have a %s record. Will create a new record for it." %
                              (full_domain_name, self.record_type))
@@ -73,11 +81,11 @@ class DomainRecordChanger:
                 logging.info("The Domain %s doesn't have a %s record. Creating new record is disabled." %
                              (full_domain_name, self.record_type))
         elif record_count == 1:
-            if record_content["Value"].strip() != self.ip_value:
+            if record_content[0]["Value"].strip() != self.ip_value:
                 self.update_record(subdomain_name)
             else:
                 logging.info("%s record for %s did not change since it is same as the machine." %
-                             self.record_type, full_domain_name)
+                             (self.record_type, full_domain_name))
         else:
             logging.error("There are more than 1 %s record for %s. Record for it was left unchanged." %
                           (self.record_type, full_domain_name))
@@ -85,7 +93,7 @@ class DomainRecordChanger:
     def start_ddns(self):
         logging.info("Start DDNS for %s record under %s." % (self.record_type, self.domain_name))
         if self.domain_name is None:
-            logging.error("Corrupted configuration: missing domainName")
+            logging.error("Corrupted configuration, missing domainName. DDNS ended.")
         else:
             for single_subdomain in self.sub_domains:
                 self.change_single_domain(single_subdomain)

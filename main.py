@@ -43,13 +43,15 @@ class DDNS:
             sys.exit(1)
         else:
             pass
-
+        logging.info("--------DDNS script started--------")
         DDNS.ali_client = AcsClient(DDNS.ali_client_settings["accessKeyId"],
-                                    DDNS.ali_client_settings["accessKeyId"])
+                                    DDNS.ali_client_settings["accessSecret"])
 
         for single_domain_config in DDNS.domain_settings:
             dm = DomainRecordChanger(DDNS.ali_client, DDNS.ip_url, single_domain_config)
             dm.start_ddns()
+        logging.info("---------DDNS script ended---------")
+
 
 if __name__ == "__main__":
     DDNS.main()
