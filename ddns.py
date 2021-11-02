@@ -6,7 +6,7 @@ import sys
 
 
 class DDNS:
-    settings_manager = SettingsManager()
+    settings_manager = None
     ali_client_settings = None
     ali_client = None
     ip_url = None
@@ -34,7 +34,10 @@ class DDNS:
         DDNS.domain_settings = DDNS.settings_manager.get_domain_settings()
 
     @staticmethod
-    def main():
+    def main(settings_path="aliddnsSettings.json"):
+        DDNS.settings_manager = SettingsManager(settings_path)
+        if not DDNS.settings_manager.is_valid:
+            sys.exit(1)
         DDNS.init_logging()
         DDNS.read_settings()
         if not DDNS.settings_manager.is_valid:

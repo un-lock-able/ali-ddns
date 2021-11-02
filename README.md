@@ -7,9 +7,12 @@ A python script used for ddns on aliyun.
 so it may be useful if you want to use ddns on a server.
 1. Download the latest release in the release section and unpack the .zip file into any directory.
 Be sure to keep the `aliddns.exe` and `aliddnsSettings.json.example` in the same folder.
-2. Copy the `aliddnsSettings.json.example` to a new file and rename the new file into `aliddnsSettings.json`.
+2. Copy the `aliddnsSettings.json.example` to a new file and rename the new file into `aliddnsSettings.json`
+   (or any other name you want).
 3. Open the `aliddnsSettings.json` with any text editor and fill in all the information.
-Remember to fill in the `accessKeyId` and `accessSecrect` field and delete any extra entries in the `domainSettings` list.
+Remember to fill in the `accessKeyId` and `accessSecrect` field and delete any extra entries not needed in the `domainSettings` list.
+4. Run the .exe file directly and the script will try to find the configuration file named `aliddnsSettings.json` in the same directory.
+Specify special filename using the command `./aliddns.exe path_to_settings_file`.
 
 ## Using the python .py script directly
 
@@ -24,4 +27,4 @@ extension from .py into .pyw so the script will run in th background.
 
 # Todos
 - [x] A new class for managing settings
-- [ ] New function: read configuration file name from command line arguments list
+- [x] New function: read configuration file name from command line arguments list

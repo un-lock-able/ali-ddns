@@ -4,14 +4,14 @@ import time
 
 
 class SettingsManager:
-    def __init__(self):
+    def __init__(self, settings_path):
         try:
-            with open("aliddnsSettings.json") as setting_file:
+            with open(settings_path) as setting_file:
                 self.settings = json.load(setting_file)
             self.is_valid = True
         except FileNotFoundError:
             self.init_log_when_error()
-            logging.error("The settings file aliddnsSettings.json not found. Please Check your spelling.")
+            logging.error("The settings file %s not found. Please Check your spelling." % settings_path)
             self.is_valid = False
 
     def get_log_settings(self):
@@ -61,5 +61,5 @@ class SettingsManager:
 
     def init_log_when_error(self):
         log_format = "%(asctime)s - %(levelname)s - %(message)s"
-        log_file_name = "aliDDNSerrorlog_%s.log" % time.strftime("%Y-%m-%d_%H-%M-%S", time.gmtime(time.time()))
+        log_file_name = "aliddns_error_log_%s.log" % time.strftime("%Y-%m-%d_%H-%M-%S", time.gmtime(time.time()))
         logging.basicConfig(filename=log_file_name, level=logging.INFO, format=log_format)
