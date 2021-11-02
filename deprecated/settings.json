@@ -1,7 +1,7 @@
 {
     "aliClientSettings": {
-        "accessKeyId":"LTAI5tPiaPLkjX69k1SjWPd4",
-        "accessSecret":"e3Mf739gSQ088W5zqmSJvwFbWSIeD0"
+        "accessKeyId":"your_access_key",
+        "accessSecret":"your_access_secret"
     },
 
     "ipv4ddnsSettings": {
@@ -37,8 +37,8 @@
 
         "domains": [
             {
-                "domain": "unlockableworld.com",
-                "subdomains": ["@", "www", "dns","minecraft", "mail", "smtp", "pop3", "imap", "files", "phpmyadmin"]
+                "domain": "your_domain.com",
+                "subdomains": ["@", "www", "dns"]
             }
         ]
     },
