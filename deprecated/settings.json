@@ -1,0 +1,51 @@
+{
+    "aliClientSettings": {
+        "accessKeyId":"LTAI5tPiaPLkjX69k1SjWPd4",
+        "accessSecret":"e3Mf739gSQ088W5zqmSJvwFbWSIeD0"
+    },
+
+    "ipv4ddnsSettings": {
+        "enabled": false,
+        "getIPUrl": "https://api-ipv4.ip.sb/ip",
+        "//": "http://v4.ip.zxinc.org/getip is faster in China",
+
+        "createNewRecord": true,
+        "//": "Controls whether to create a new record when there is no preexisted record found",
+
+        "domains": [
+            {
+                "domain": "your_domain1.com",
+                "subdomains": ["@", "www", "dns"]
+            },
+            {
+                "domain": "your_domain2.com",
+                "subdomains": ["@", "www", "dns"]
+            }
+        ]
+    },
+
+    "ipv6ddnsSettings": {
+        "enabled": true,
+        "getIPUrl": "https://api-ipv6.ip.sb/ip",
+        "//": "http://v6.ip.zxinc.org/getip is faster in China",
+
+        "createNewRecord": true,
+        "//": "Controls whether to create a new record when there is no preexisted record found",
+
+        "UseSettingsInIPv4Section": false,
+        "//": "This will override the settings below and use the settings in ipv4ddnssettings no matter whether you have enabled ipv4ddns.",
+
+        "domains": [
+            {
+                "domain": "unlockableworld.com",
+                "subdomains": ["@", "www", "dns","minecraft", "mail", "smtp", "pop3", "imap", "files", "phpmyadmin"]
+            }
+        ]
+    },
+
+    "logSettings": {
+        "logFileName": "ddnslog.log",
+        "logLevel": "info",
+        "//": "available log level: debug, info, warning"
+    }
+}
