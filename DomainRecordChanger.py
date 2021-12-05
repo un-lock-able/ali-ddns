@@ -91,10 +91,13 @@ class DomainRecordChanger:
                           (self.record_type, full_domain_name))
 
     def start_ddns(self):
-        logging.info("Start DDNS for %s record under %s." % (self.record_type, self.domain_name))
-        if self.domain_name is None:
-            logging.error("Corrupted configuration, missing domainName. DDNS ended.")
+        if self.enabled:
+            logging.info("Start DDNS for %s record under %s." % (self.record_type, self.domain_name))
+            if self.domain_name is None:
+                logging.error("Corrupted configuration, missing domainName. DDNS ended.")
+            else:
+                for single_subdomain in self.sub_domains:
+                    self.change_single_domain(single_subdomain)
+                logging.info("DDNS for %s ended." % self.domain_name)
         else:
-            for single_subdomain in self.sub_domains:
-                self.change_single_domain(single_subdomain)
-            logging.info("DDNS for %s ended." % self.domain_name)
+            logging.info("DDNS for %s is disabled." % self.domain_name)
