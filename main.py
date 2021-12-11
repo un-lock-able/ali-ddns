@@ -6,3 +6,4 @@ if __name__ == "__main__":
         DDNS.main(sys.argv[1])
     except IndexError:
         DDNS.main()
+    sys.exit(0)
