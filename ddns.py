@@ -1,5 +1,5 @@
 from DomainRecordChanger import DomainRecordChanger
-from SettingsManger import SettingsManager
+from SettingsManager import SettingsManager
 from aliyunsdkcore.client import AcsClient
 import logging
 import sys
